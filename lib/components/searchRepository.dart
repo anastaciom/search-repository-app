@@ -12,30 +12,12 @@ class SearchRepository extends StatefulWidget {
 }
 
 class _SearchRepositoryState extends State<SearchRepository> {
+  final _formKey = GlobalKey<FormState>();
   String _textInput = "";
-
   final repositoryController = TextEditingController();
 
   @override
-  void initState() {
-    super.initState();
-
-    repositoryController.addListener(() {
-      setState(() {
-        _textInput = repositoryController.text.toString();
-      });
-    });
-  }
-
-  @override
-  void dispose() {
-    repositoryController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final _formKey = GlobalKey<FormState>();
     return Form(
         key: _formKey,
         child: Row(
@@ -43,7 +25,9 @@ class _SearchRepositoryState extends State<SearchRepository> {
             Expanded(
               flex: 1,
               child: TextFormField(
-                controller: repositoryController,
+                onChanged: (value) => setState(() {
+                  _textInput = value;
+                }),
                 decoration: const InputDecoration(labelText: 'Repository Name'),
                 autofocus: true,
                 validator: (value) => value!.isEmpty ? 'Error' : null,

@@ -4,6 +4,7 @@ class Repository {
   final String? description;
   final int stars;
   final String url;
+  final String? avatarUrl;
 
   Repository({
     required this.id,
@@ -11,6 +12,7 @@ class Repository {
     required this.description,
     required this.stars,
     required this.url,
+    required this.avatarUrl,
   });
 
   factory Repository.fromJson(Map<String, dynamic> json) {
@@ -20,6 +22,7 @@ class Repository {
       description: json['description'],
       stars: json['stargazers_count'],
       url: json['html_url'],
+      avatarUrl: json['owner']['avatar_url'],
     );
   }
 }
